@@ -1,18 +1,13 @@
 import java.util.Random;
+import java.util.HashMap;
 
 public class ATM {
-	private String ID;
-	private double balance;
+	private HashMap<String, Double> map;
 	
 	public ATM() {
-		ID=this.createID();
-		this.balance=0;
+		map=new HashMap<>();
 	}
-	
-	public ATM(String id) {
-		ID=id;
-		this.balance=0;
-	}
+	 
 	public String createID(){
 		int ranNum;
 		String output="";
@@ -25,14 +20,23 @@ public class ATM {
 		return output;
 	}
 	
-	public void deposit(String id, double amount) {
-		if(id.equals(ID)) {
-			balance+=amount;
-		}	
+	public double getBalance(String ID){
+		return map.get(ID);
 	}
-	public static void main(String [] args) {
-		ATM bank = new ATM();
-		System.out.
-		bank.deposit(null, 0);
+	
+	public void newDeposit(double amount){
+		String id=createID();
+		map.put(id,amount);
+		System.out.println("Balance of $"+amount+" deposited into account with ID "+id+".");
 	}
+	public void idDeposit(String ID, double amount){
+		if(map.get(ID)!=null){
+			map.replace(ID, map.get(ID)+amount);
+			System.out.println("Balance of $"+amount+" deposited into account with ID "+ID+".");
+		}else {
+			map.put(ID,amount);
+			System.out.println("Balance of $"+amount+" deposited into account with ID "+ID+".");
+		}
+	}
+	//use hashmaps to connect value (balance) to id (key).
 }
